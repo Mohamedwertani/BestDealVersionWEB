@@ -19,66 +19,59 @@ class CategorieDao extends AbstractDao {
     public function create($categorie) {
 
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
-            $requete = $dbh->prepare("insert into category(`name`) values ('" . $categorie->getName() . "')");
+            $requete = $this->dbh->prepare("insert into category(`name`) values ('" . $categorie->getName() . "')");
             $requete->execute();
             echo 'create';
             return true;
         } catch (Exception $e) {
-//            $dbh->rollBack();
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
 
     public function delete($categorie) {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
-            $requete = $dbh->prepare("delete from category where name ='" . $categorie->getName() . "'");
+            $requete = $this->dbh->prepare("delete from category where name ='" . $categorie->getName() . "'");
             $requete->execute();
             echo 'delete';
             return true;
         } catch (Exception $e) {
-//            $dbh->rollBack();
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
 
     public function deletAll() {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
-            $requete = $dbh->prepare("  delete from category");
+            $requete = $this->dbh->prepare("  delete from category");
             $requete->execute();
             echo 'delete all';
             return true;
         } catch (Exception $e) {
-//            $dbh->rollBack();
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
 
     public function update($categorie) {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
-            $requete = $dbh->prepare("update category set name = '" . $categorie->getName() . "' where name = '" . $categorie->getName() . "'");
+            $requete = $this->dbh->prepare("update category set name = '" . $categorie->getName() . "' where name = '" . $categorie->getName() . "'");
             $requete->execute();
             echo 'update';
             return true;
         } catch (Exception $e) {
-//            $dbh->rollBack();
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
 
     public function liste() {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
-
-            $requete = $dbh->prepare("select * from category");
-//$requete->execute();
+             $requete = $this->dbh->prepare("select * from category");
             if ($requete->execute(array($_GET['name']))) {
                 while ($row = $requete->fetch()) {
                     print_r($row['name']);
@@ -88,16 +81,15 @@ class CategorieDao extends AbstractDao {
             echo '<br/>liste <br/>';
 //            return true;
         } catch (Exception $e) {
-//            $dbh->rollBack();
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
 
     public function oneResutlt($categorie) {
         try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
-            $requete = $dbh->prepare("select * from category  WHERE name ='" . $categorie->getName() . "'");
+            $requete = $this->dbh->prepare("select * from category  WHERE name ='" . $categorie->getName() . "'");
             if ($requete->execute(array($_GET['name']))) {
                 while ($row = $requete->fetch()) {
                     print_r($row['name']);
@@ -106,8 +98,8 @@ class CategorieDao extends AbstractDao {
             } else {
                 echo 'pas de resultat';
             }
-         } catch (Exception $e) {
-            $dbh->rollBack();
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
         }
     }
@@ -119,9 +111,9 @@ $cat = new Categorie('Car');
 //$cat->setName('jeux');
 //echo $cat->getName();
 $catDao = new CategorieDao();
-//$catDao->create($cat);
+$catDao->create($cat);
 //$catDao->delete($cat);
 //$catDao->update($cat);
-$oneResutlt = $catDao->oneResutlt($cat);
+//$oneResutlt = $catDao->oneResutlt($cat);
 $catDao->liste();
 ?>

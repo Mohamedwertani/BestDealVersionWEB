@@ -15,7 +15,7 @@ abstract class AbstractDao {
 //        $this->dbh = new ConnexionBd();
 //        echo 'bonjours';
 //
-//        $dbha = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '');
+        $this->dbh = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '');
 //        $this->dbh = $dbha;
     }
 

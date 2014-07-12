@@ -14,7 +14,7 @@
 class UserDao extends AbstractDao {
 
     public function create($user) {
-         try {
+        try {
             $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
             $requete = $dbh->prepare("insert into user(`firstName`, `lastName`, `login`, `pwd`) values('" . $user->firstName . "','" . $user->lastName . "','" . $user->login . "','" . $user->pwd . "')");
@@ -28,11 +28,31 @@ class UserDao extends AbstractDao {
     }
 
     public function deletAll() {
-        
+                try {
+            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
+
+            $requete = $dbh->prepare("delete from user");
+            $requete->execute();
+            echo 'create';
+            return true;
+        } catch (Exception $e) {
+//            $dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
     }
 
-    public function delete($newObj) {
-        
+    public function delete($user) {
+        try {
+            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
+
+            $requete = $dbh->prepare("delete from user where login =" . $user->login . "");
+            $requete->execute();
+            echo 'create';
+            return true;
+        } catch (Exception $e) {
+//            $dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
     }
 
     public function liste() {
@@ -44,7 +64,7 @@ class UserDao extends AbstractDao {
     }
 
     public function update($newObj) {
-             try {
+        try {
             $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
             $requete = $dbh->prepare("update user set firstName = " . $user->firstName . ", lastName = " . $user->lastName . ", pwd = " . $user->pwd . " where login = " . $user->login . "");
