@@ -1,8 +1,22 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', '');
+/** MySQL database username */
+define('DB_USER', 'root');
+/** MySQL database password */
+define('DB_PASSWORD', '');
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+/** The Database Collate type. Don't change this if in doubt. */
 
+try {
+    $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', $user, $pass);
+ 
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}

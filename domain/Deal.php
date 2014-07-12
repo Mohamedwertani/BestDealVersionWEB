@@ -11,6 +11,6 @@
  *
  * @author King
  */
-class Deal {
-    //put your code here
-}
+  class Deal {
+       
+ }

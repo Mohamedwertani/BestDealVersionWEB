@@ -1,10 +1,35 @@
-<?php 
+<?php
+
+//include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/utilities/connexionbd.php');
+
 /**
  * Description of AbstractDao
  *
  * @author King
  */
-public abstract class AbstractDao {
-    //put your code here
+abstract class AbstractDao {
+
+    protected $dbh;
+
+    function __construct() {
+//        $this->dbh = new ConnexionBd();
+//        echo 'bonjours';
+//
+//        $dbha = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '');
+//        $this->dbh = $dbha;
+    }
+
+    public abstract function liste();
+
+    public abstract function oneResutlt($newObj);
+
+    public abstract function create($newObj);
+
+    public abstract function update($newObj);
+
+    public abstract function delete($newObj);
+
+    abstract function deletAll();
 }
+
 ?>
