@@ -11,5 +11,8 @@
  * @author King
  */
 interface IUser {
-    //put your code here
+public function connect();
+public function inscripton();
+public function remplirProfil();
+public function deconnect();
 }

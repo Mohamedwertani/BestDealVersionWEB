@@ -1,4 +1,5 @@
-<?php
+ 
+<?php 
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,10 +8,27 @@
  */
 
 /**
- * Description of categorie
+ * Description of Categorie
  *
  * @author King
  */
 class Categorie {
-    //put your code here
-}
+    private $name ;
+    
+//    function __construct() {
+//     } 
+    function __construct($name) {
+        $this->name = $name;
+    }
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+
+ }
+?>
+ 
