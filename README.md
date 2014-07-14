@@ -1,4 +1,4 @@
 BestDealVersionWEB
 ==================
 
-BestDeal Version WEB(PHP , CSS, HTML , JS)
+BestDeal Version WEB(PHP, CSS, HTML, JS)
