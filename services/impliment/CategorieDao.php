@@ -117,14 +117,14 @@ class CategorieDao extends AbstractDao {
 
 }
 
-$cat = new Categorie('Cars');
-//echo $cat->getName();
-//$cat->setName('jeux');
-//echo $cat->getName();
-$catDao = new CategorieDao();
-//$catDao->create($cat);
-//$catDao->delete($cat);
-//$catDao->update($cat);
-$oneResutlt = $catDao->oneResutlt($cat);
+// $cat = new Categorie('Cars');
+// echo $cat->getName();
+// $cat->setName('jeux');
+// echo $cat->getName();
+// $catDao = new CategorieDao();
+// $catDao->create($cat);
+// $catDao->delete($cat);
+// $catDao->update($cat);
+// $oneResutlt = $catDao->oneResutlt($cat);
 //$catDao->liste();
 ?>
