@@ -12,11 +12,18 @@ abstract class AbstractDao {
     protected $dbh;
 
     function __construct() {
-//        $this->dbh = new ConnexionBd();
-//        echo 'bonjours';
-//
-        $this->dbh = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '');
-//        $this->dbh = $dbha;
+
+        try {
+            $this->dbh = mysqli_connect("localhost", "root", "", "bestdealdb");
+            if (mysqli_connect_errno()) {
+                printf("Erreur de connexion : %s\n", mysqli_connect_error());
+                exit();
+            }
+        } catch (Exception $e) {
+            echo 'Erreur : ' . $e->getMessage() . '<br />';
+            echo 'N° : ' . $e->getCode();
+             exit();
+        }
     }
 
     public abstract function liste();

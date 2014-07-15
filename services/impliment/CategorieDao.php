@@ -16,14 +16,50 @@ include'../abstractdao.php';
  */
 class CategorieDao extends AbstractDao {
 
-    public function create($categorie) {
+    public function __construct() {
+        parent::__construct();
+    }
 
+    public function liste() {
+        try {
+            $querySelect = "SELECT * FROM category";
+            $resultSet = $this->dbh->query($querySelect);
+
+            if ($resultSet->num_rows > 0) {
+                while ($row = $resultSet->fetch_assoc()) {
+                    foreach ($row as $fieldValue) {
+                        $bigString .= "<em>$fieldValue</em><br />\n";
+                    }
+                    $bigString .= "<hr />";
+                }
+                $this->dbh->close();
+                echo $bigString;
+            }
+ 
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+    }
+
+    public function create($categorie) {
         try {
 
-            $requete = $this->dbh->prepare("insert into category(`name`) values ('" . $categorie->getName() . "')");
-            $requete->execute();
-            echo 'create';
-            return true;
+            $stmt = $this->dbh->prepare("INSERT INTO category (name) VALUES ('" . $categorie->getName() . "')");
+            // $stmt->bind_param('informatique');
+            $stmt->execute();
+            $stmt->close();
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+    }
+
+    public function deletAll() {
+        try {
+            $stmt = $this->dbh->prepare("DELETE FROM category  ");
+//   $stmt->bind_param("informatique");
+            $stmt->execute();
         } catch (Exception $e) {
             $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
@@ -33,53 +69,10 @@ class CategorieDao extends AbstractDao {
     public function delete($categorie) {
         try {
 
-            $requete = $this->dbh->prepare("delete from category where name ='" . $categorie->getName() . "'");
-            $requete->execute();
-            echo 'delete';
-            return true;
-        } catch (Exception $e) {
-            $this->dbh->rollBack();
-            echo "Failed: " . $e->getMessage();
-        }
-    }
-
-    public function deletAll() {
-        try {
-
-            $requete = $this->dbh->prepare("  delete from category");
-            $requete->execute();
-            echo 'delete all';
-            return true;
-        } catch (Exception $e) {
-            $this->dbh->rollBack();
-            echo "Failed: " . $e->getMessage();
-        }
-    }
-
-    public function update($categorie) {
-        try {
-
-            $requete = $this->dbh->prepare("update category set name = '" . $categorie->getName() . "' where name = '" . $categorie->getName() . "'");
-            $requete->execute();
-            echo 'update';
-            return true;
-        } catch (Exception $e) {
-            $this->dbh->rollBack();
-            echo "Failed: " . $e->getMessage();
-        }
-    }
-
-    public function liste() {
-        try {
-             $requete = $this->dbh->prepare("select * from category");
-            if ($requete->execute(array($_GET['name']))) {
-                while ($row = $requete->fetch()) {
-                    print_r($row['name']);
-                    echo '<br/>  <br/>';
-                }
-            }
-            echo '<br/>liste <br/>';
-//            return true;
+            $stmt = $this->dbh->prepare("DELETE FROM category WHERE  name='" . $categorie->getName() . "'");
+//   $stmt->bind_param("informatique");
+            $stmt->execute();
+            $stmt->close();
         } catch (Exception $e) {
             $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
@@ -88,16 +81,34 @@ class CategorieDao extends AbstractDao {
 
     public function oneResutlt($categorie) {
         try {
+            $querySelect= "select * from category where name = '" . $categorie->getName() . "'";
+             $resultSet = $this->dbh->query($querySelect);
 
-            $requete = $this->dbh->prepare("select * from category  WHERE name ='" . $categorie->getName() . "'");
-            if ($requete->execute(array($_GET['name']))) {
-                while ($row = $requete->fetch()) {
-                    print_r($row['name']);
-                    echo '<br/>  <br/>';
+            if ($resultSet->num_rows > 0) {
+                while ($row = $resultSet->fetch_assoc()) {
+                    foreach ($row as $fieldValue) {
+                        $bigString .= "<em>$fieldValue</em><br />\n";
+                    }
+                    $bigString .= "<hr />";
                 }
-            } else {
-                echo 'pas de resultat';
+                $this->dbh->close();
+                echo $bigString."Element Trouver";
+            }else {
+                echo'pas de resultat trouver ';
             }
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+    }
+
+    public function update($categorie) {
+        try {
+            //update
+            $stmt = $mysqli->prepare("UPDATE category SET name= '" . $categorie->getName() . "' WHERE  name='" . $categorie->getName() . "'");
+            // $stmt->bind_param('s',$email);
+            $stmt->execute();
+            $stmt->close();
         } catch (Exception $e) {
             $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
@@ -106,14 +117,14 @@ class CategorieDao extends AbstractDao {
 
 }
 
-$cat = new Categorie('Car');
+$cat = new Categorie('Cars');
 //echo $cat->getName();
 //$cat->setName('jeux');
 //echo $cat->getName();
 $catDao = new CategorieDao();
-$catDao->create($cat);
+//$catDao->create($cat);
 //$catDao->delete($cat);
 //$catDao->update($cat);
-//$oneResutlt = $catDao->oneResutlt($cat);
-$catDao->liste();
+$oneResutlt = $catDao->oneResutlt($cat);
+//$catDao->liste();
 ?>

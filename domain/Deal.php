@@ -22,18 +22,18 @@ class Deal {
     private $startDate;
     private $duration;
 
-    function __construct($id, $name, $desc, $price, $category, $owner ) {
-        $this->id = $id;
+    function __construct( $name, $desc, $price, $category, $owner, $startDate, $duration) {
+ 
         $this->name = $name;
         $this->desc = $desc;
         $this->price = $price;
         $this->category = $category;
         $this->owner = $owner;
-//        $this->startDate = $startDate;
-//        $this->duration = $duration;
+        $this->startDate = $startDate;
+        $this->duration = $duration;
     }
 
-    public function getId() {
+        public function getId() {
         return $this->id;
     }
 
