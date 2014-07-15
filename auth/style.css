@@ -1,0 +1,81 @@
+/* body-----*/
+body
+{
+margin :auto;
+width :1100px;
+background-color:#C5C8C8;
+}
+#inscription
+{
+float  : left;
+width :50%;
+padding-left :0%;
+padding-top :100px;
+}
+/* fin body-----*/
+/*header -------*/
+header
+{
+
+}
+
+
+
+/* fin header --*/
+/*section ------*/
+section
+		{
+		width :800px;
+		float :left;
+		}
+
+
+#couleur
+{
+margin-bottom:50px;
+margin-left: 230px;
+height :500px;
+background-color:#313232;
+width :600px;
+border-radius: 45px;
+box-shadow:5px 5px 10px;
+/*border : 2px solid #3290CC;*/
+}
+
+.article
+{
+background-color:rgba(0,0,0,0.3);
+}
+section article div
+{
+height:176px;
+}
+
+
+section article div h1
+{
+text-shadow: 1px 1px 1px #fff;
+font-size :40;
+font-weight : bold;
+font-family: Georgia,serif;
+line-height : 80px;
+
+}
+
+section article div h2
+{
+margin-left :137px;
+color :#3290CC;
+font-size :30;
+font-weight : bold;
+line-height : 10px;
+}
+/*fin section ------*/
+/* aside -----------*/
+
+/* fin aside -----------*/
+/*nav -----*/
+
+/* fin n*/
+
+
