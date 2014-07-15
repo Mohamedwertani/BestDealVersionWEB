@@ -62,18 +62,22 @@ class UserDao extends AbstractDao {
     public function oneResutlt($newObj) {
         
     }
-function connect($login,$password){    
-        $requet = "select * from user where login='".$login."' and password='".$password."'";
-            $requet1 = mysql_query($requet) or die (mysql_error());
+function connect($login,$password){  
+      try {
+            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
+            $requete = $dbh->prepare("select * from user where login='". $user->login."' and password='".$user->pwd."'");
+            $requet1 = mysql_query($requete) or die (mysql_error());
             $data = mysql_num_rows($requet1);
             if (isset($data['login'])&!empty($data['login'])&&isset($data['password'])&!empty($data['password'])) {
                 $_SESSION['login']=$data['login'];
                  $_SESSION['password']=$data['password'];
                  header("Location:home.php");
-        } 
-            else {
-                echo 'reverifier votre login et mot de passe ';
-            }
+                 
+        }  } catch (Exception $e) {
+//            $dbh->rollBack();
+            echo 'reverifier votre login et mot de passe ' . $e->getMessage();
+        }
+            
     }
 
     public function update($newObj) {
