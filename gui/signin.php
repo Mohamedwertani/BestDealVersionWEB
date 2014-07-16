@@ -1,3 +1,10 @@
+﻿<?php
+include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/domain/User.php');
+include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/services/impliment/UserDao.php');
+$log = new UserDao();
+if (isset($_POST))
+$log->connect($_POST['login'], $_POST['password']);
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -65,10 +72,10 @@ and open the template in the editor.
 
         <div class="container">
 
-            <form class="form-signin">
+            <form method="post" action="" class="form-signin">
                 <h2 class="form-signin-heading">Please sign in</h2>
-                <input type="text" class="input-block-level" placeholder="Email address">
-                <input type="password" class="input-block-level" placeholder="Password">
+                <input type="text" name="login" id="login" class="input-block-level" placeholder="Email address">
+                <input type="password" name="password" id="password" class="input-block-level" placeholder="Password">
                 <label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
