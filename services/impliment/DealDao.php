@@ -1,7 +1,8 @@
 <?php
 
 include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/domain/deal.php');
-include'../abstractdao.php';
+include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/services/abstractdao.php');
+//include'../abstractdao.php';
 
 
 /*
@@ -25,17 +26,38 @@ class DealDao extends AbstractDao {
         try {
             $querySelect = "SELECT * FROM deal";
             $resultSet = $this->dbh->query($querySelect);
+            return $resultSet;
+//            if ($resultSet->num_rows > 0) {
+//                while ($row = $resultSet->fetch_object()) {
+//                    foreach ($row as $fieldValue) {
+//                        $bigString .= "<em>$fieldValue</em><br />\n";
+//                    }
+//                    $bigString .= "<hr />";
+//                }
+            $this->dbh->close();
+//                echo $bigString;
+//            }
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+    }
 
-            if ($resultSet->num_rows > 0) {
-                while ($row = $resultSet->fetch_assoc()) {
-                    foreach ($row as $fieldValue) {
-                        $bigString .= "<em>$fieldValue</em><br />\n";
-                    }
-                    $bigString .= "<hr />";
-                }
-                $this->dbh->close();
-                echo $bigString;
-            }
+    public function listeCategorie() {
+        try {
+            $querySelect = "SELECT category FROM deal";
+            $resultSet = $this->dbh->query($querySelect);
+            return $resultSet;
+//            if ($resultSet->num_rows > 0) {
+//                while ($row = $resultSet->fetch_object()) {
+//                    foreach ($row as $fieldValue) {
+//                        $bigString .= "<em>$fieldValue</em><br />\n";
+//                    }
+//                    $bigString .= "<hr />";
+//                }
+            $this->dbh->close();
+//                echo $bigString;
+//            }
         } catch (Exception $e) {
             $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
@@ -110,5 +132,5 @@ class DealDao extends AbstractDao {
 //$deal = new Deal( ' name', ' desc', 200, ' category', '200' );
 //
 //$dealDao = new DealDao();
-//$dealDao->create($deal);
+//$dealDao->liste($deal);
 ?>

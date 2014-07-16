@@ -2,7 +2,8 @@
 
 include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/domain/categorie.php');
 
-include'../abstractdao.php';
+//include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/services/abstractdao.php');
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,17 +25,19 @@ class CategorieDao extends AbstractDao {
         try {
             $querySelect = "SELECT * FROM category";
             $resultSet = $this->dbh->query($querySelect);
+            return $resultSet;
+//            $this->dbh->close();
 
-            if ($resultSet->num_rows > 0) {
-                while ($row = $resultSet->fetch_assoc()) {
-                    foreach ($row as $fieldValue) {
-                        $bigString .= "<em>$fieldValue</em><br />\n";
-                    }
-                    $bigString .= "<hr />";
-                }
-                $this->dbh->close();
-                echo $bigString;
-            }
+//            if ($resultSet->num_rows > 0) {
+//                while ($row = $resultSet->fetch_assoc()) {
+//                    foreach ($row as $fieldValue) {
+//                        $bigString .= "<em>$fieldValue</em><br />\n";
+//                    }
+//                    $bigString .= "<hr />";
+//                }
+//                $this->dbh->close();
+//                echo $bigString;
+//            }
  
         } catch (Exception $e) {
             $this->dbh->rollBack();
@@ -117,14 +120,14 @@ class CategorieDao extends AbstractDao {
 
 }
 
-// $cat = new Categorie('Cars');
-// echo $cat->getName();
-// $cat->setName('jeux');
-// echo $cat->getName();
-// $catDao = new CategorieDao();
-// $catDao->create($cat);
-// $catDao->delete($cat);
-// $catDao->update($cat);
-// $oneResutlt = $catDao->oneResutlt($cat);
-//$catDao->liste();
+//$cat = new Categorie('Cars');
+////echo $cat->getName();
+////$cat->setName('jeux');
+////echo $cat->getName();
+//$catDao = new CategorieDao();
+////$catDao->create($cat);
+////$catDao->delete($cat);
+////$catDao->update($cat);
+//$oneResutlt = $catDao->oneResutlt($cat);
+////$catDao->liste();
 ?>

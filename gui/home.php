@@ -1,14 +1,10 @@
+
 <?php include("head.php"); ?> 
 <?php include("header.php"); ?>
 <?php
 include("../services/impliment/dealdao.php");
-include("../services/impliment/categoriedao.php");
-//$categorieDao = new CategorieDao();
-//$resultCategorie = $categorieDao->liste();
-//$catDao->liste();
 $dealDao = new DealDao();
 $resultSet = $dealDao->liste();
-$resultCategorie = $dealDao->listeCategorie();
 //if ($resultSet->num_rows > 0) {
 //    while ($row = $resultSet->fetch_object()) {
 //        foreach ($row as $fieldValue) {
@@ -30,7 +26,7 @@ $resultCategorie = $dealDao->listeCategorie();
     <div class="page-header">
         <h1>Main page</h1>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="min-height: 700px;">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -79,36 +75,9 @@ $resultCategorie = $dealDao->listeCategorie();
 
     <!-- Le pied de page -->
 
-
+    <?php include("footer.php"); ?>
 </div> <!-- /container -->
-<div class="container">
 
-    <form class="form-signin">
-        <h2 class="form-signin-heading">New Deal</h2>
-        <input type="text" class="input-block-level" placeholder="Name Deal">
-        <input type="number" class="input-block-level" placeholder="Price Deal">
-        <input type="text" class="input-block-level" placeholder="Owner Deal">
-        <input type="datetime" class="input-block-level" placeholder="Start Date Deal">
-        <input type="datetime" class="input-block-level" placeholder="Duration Deal">
-        <input type="number" class="input-block-level" placeholder="Category Deal">
-        <input list="browsers" name="browser" class="input-block-level" placeholder="Category Deal">
-        <datalist id="browsers">
-            <?php
-            if ($resultCategorie->num_rows > 0) {
-                while ($row = $resultCategorie->fetch_object()) {
-                    ?>
-                    <option value="<?php echo $row->category; ?>">
-                    <?php }
-                }
-                ?>
-        </datalist>
-        <textarea cols="1" class="input-block-level" rows="8" placeholder="Descrption Deal" ></textarea>                 
-
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
-    </form>
-
-</div> <!-- /container -->
-<div class="container">    <?php include("footer.php"); ?></div>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

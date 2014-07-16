@@ -108,6 +108,6 @@ class Deal {
     }
 
 }
-
-$deal = new Deal('5', 'name', 'desc', 'price', 'category', 'owner');
-$deal->actionEnabled();
+//
+//$deal = new Deal('5', 'name', 'desc', 'price', 'category', 'owner');
+//$deal->actionEnabled();

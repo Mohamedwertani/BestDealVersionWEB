@@ -56,6 +56,5 @@ class User {
     public function setPwd($pwd) {
         $this->pwd = $pwd;
     }
-	
 
 }

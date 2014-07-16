@@ -1,5 +1,7 @@
 <?php
 
+include ($_SERVER["DOCUMENT_ROOT"] . '/NetBeansProjectsPhp/BestDealVersionWEB/BestDealVersionWEB/services/abstractdao.php');
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -28,7 +30,7 @@ class UserDao extends AbstractDao {
     }
 
     public function deletAll() {
-                try {
+        try {
             $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
 
             $requete = $dbh->prepare("delete from user");
@@ -62,23 +64,6 @@ class UserDao extends AbstractDao {
     public function oneResutlt($newObj) {
         
     }
-function connect($login,$password){  
-      try {
-            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
-            $requete = $dbh->prepare("select * from user where login='". $user->login."' and password='".$user->pwd."'");
-            $requet1 = mysql_query($requete) or die (mysql_error());
-            $data = mysql_num_rows($requet1);
-            if (isset($data['login'])&!empty($data['login'])&&isset($data['password'])&!empty($data['password'])) {
-                $_SESSION['login']=$data['login'];
-                 $_SESSION['password']=$data['password'];
-                 header("Location:home.php");
-                 
-        }  } catch (Exception $e) {
-//            $dbh->rollBack();
-            echo 'reverifier votre login et mot de passe ' . $e->getMessage();
-        }
-            
-    }
 
     public function update($newObj) {
         try {
@@ -94,4 +79,21 @@ function connect($login,$password){
         }
     }
 
- }
+    function connect($login, $password) {
+        try {
+            $dbh = new PDO('mysql:host=localhost;dbname=bestdealdb', 'root', '');
+            $requete = $dbh->prepare("select * from user where login='" . $user->login . "' and password='" . $user->pwd . "'");
+            $requet1 = mysql_query($requete) or die(mysql_error());
+            $data = mysql_num_rows($requet1);
+            if (isset($data['login']) & !empty($data['login']) && isset($data['password']) & !empty($data['password'])) {
+                $_SESSION['login'] = $data['login'];
+                $_SESSION['password'] = $data['password'];
+                header("Location:home.php");
+            }
+        } catch (Exception $e) {
+//            $dbh->rollBack();
+            echo 'reverifier votre login et mot de passe ' . $e->getMessage();
+        }
+    }
+
+}
