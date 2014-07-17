@@ -11,10 +11,10 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="home.php">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="dealadd.php">New Deal</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Deal <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Action</a></li>
                             <li><a href="#">Another action</a></li>

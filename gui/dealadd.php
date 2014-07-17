@@ -9,16 +9,8 @@ include("../services/impliment/categoriedao.php");
 $dealDao = new DealDao();
 $resultSet = $dealDao->liste();
 $resultCategorie = $dealDao->listeCategorie();
-//if ($resultSet->num_rows > 0) {
-//    while ($row = $resultSet->fetch_object()) {
-//        foreach ($row as $fieldValue) {
-//            $bigString .= "<em>$fieldValue</em><br />\n";
-//        }
-//        $bigString .= "<hr />";
-//    }
-////    $this->dbh->close();
-//    echo $bigString;
-//}
+ 
+ 
 ?>
 
 
@@ -28,7 +20,7 @@ $resultCategorie = $dealDao->listeCategorie();
 
     <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="page-header">
-        <h1>Main page</h1>
+        <h1>List Of My Deals</h1>
     </div>
     <div class="col-md-6">
         <table class="table table-striped">
@@ -64,7 +56,7 @@ $resultCategorie = $dealDao->listeCategorie();
                         echo "  <td>" . $row->duration . "</td>";
                         echo '  <td><button type="button" class="btn btn-lg btn-primary">Primary</button></td>';
                         echo '  <td><button type="button" class="btn btn-lg btn-info">View</button></td>';
-                        echo '  <td><button type="button" class="btn btn-lg btn-success">Success</button></td>';
+                        echo '  <td><button type="button" class="btn btn-lg btn-success">Update</button></td>';
                         echo ' </tr>';
                     }
                 }
@@ -83,26 +75,26 @@ $resultCategorie = $dealDao->listeCategorie();
 </div> <!-- /container -->
 <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" method="post" action="dealaddAction.php">
         <h2 class="form-signin-heading">New Deal</h2>
-        <input type="text" class="input-block-level" placeholder="Name Deal">
-        <input type="number" class="input-block-level" placeholder="Price Deal">
-        <input type="text" class="input-block-level" placeholder="Owner Deal">
-        <input type="datetime" class="input-block-level" placeholder="Start Date Deal">
-        <input type="datetime" class="input-block-level" placeholder="Duration Deal">
-        <input type="number" class="input-block-level" placeholder="Category Deal">
-        <input list="browsers" name="browser" class="input-block-level" placeholder="Category Deal">
+        <input type="text" class="input-block-level" name="name" placeholder="Name Deal">
+        <input type="number" class="input-block-level" name="price"placeholder="Price Deal">
+        <input type="text" class="input-block-level" name="owner" placeholder="Owner Deal">
+        <input type="datetime-local" class="input-block-level" name="startDate" placeholder="Start Date Deal">
+        <input type="datetime-local" class="input-block-level" name="duration"placeholder="Duration Deal">
+        <input list="browsers"  class="input-block-level" name="category" placeholder="Category Deal">
         <datalist id="browsers">
             <?php
             if ($resultCategorie->num_rows > 0) {
                 while ($row = $resultCategorie->fetch_object()) {
                     ?>
                     <option value="<?php echo $row->category; ?>">
-                    <?php }
+                    <?php
+                    }
                 }
                 ?>
         </datalist>
-        <textarea cols="1" class="input-block-level" rows="8" placeholder="Descrption Deal" ></textarea>                 
+        <textarea cols="1" class="input-block-level" rows="8"  name="desc" placeholder="Descrption Deal" ></textarea>                 
 
         <button class="btn btn-large btn-primary" type="submit">Sign in</button>
     </form>
@@ -125,8 +117,8 @@ $resultCategorie = $dealDao->listeCategorie();
 <script src=" js/bootstrap-collapse.js"></script>
 <script src=" js/bootstrap-carousel.js"></script>
 <script src=" js/bootstrap-typeahead.js"></script>
-
-
-
+ 
 </body>
 </html>
+
+ 
