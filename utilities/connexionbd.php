@@ -25,7 +25,8 @@ class ConnexionBd {
 
     public function connexion($db) {
         try {
-            $db = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '');
+            $pdo_options[PDO::ATTR_ERRMODE]=PDO::ERRMODE_EXCEPTION;
+            $db = new PDO('mysql:host=localhost;bdname=bestdealdb', 'root', '',$pdo_options);
             $this->dbh = $db;
         } catch (PDOException $e) {
             print "Erreur !: " . $e->getMessage() . "<br/>";
