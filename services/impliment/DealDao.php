@@ -43,6 +43,23 @@ class DealDao extends AbstractDao {
         }
     }
 
+    public function listePerso($user) {
+        try {
+            $querySelect = "SELECT * FROM deal where owner = '" . $user->getLogin() . "' ";
+            $resultSet = $this->dbh->query($querySelect);
+            return $resultSet;
+//            if ($resultSet->num_rows > 0) {
+//                       return $resultSet;
+//                }
+            $this->dbh->close();
+//                echo $bigString;
+//            }
+        } catch (Exception $e) {
+            $this->dbh->rollBack();
+            echo "Failed: " . $e->getMessage();
+        }
+    }
+
     public function listeCategorie() {
         try {
             $querySelect = "SELECT category FROM deal";
@@ -66,14 +83,40 @@ class DealDao extends AbstractDao {
 
     public function create($deal) {
         try {
+            echo $deal->getName();
+            echo $deal->getDesc();
+            echo $deal->getPrice();
+            echo $deal->getOwner();
+            echo $deal->getCategory();
+            echo $deal->getStartDate();
+            echo $deal->getDuration();
+            $name = $deal->getName();
+            $desc = $deal->getDesc();
+            $price = $deal->getPrice();
+            $owner = $deal->getOwner();
+            $category = $deal->getCategory();
+            $startDate = $deal->getStartDate();
+            $duration = $deal->getDuration();
 
-            $stmt = $this->dbh->prepare("INSERT INTO deal ( name,  desc,  price,  category,  owner,  startDate,  duration) VALUES ('" . $deal->getName() . "','" . $deal->getDesc() . "','" . $deal->getPrice() . "','" . $deal->getCategory() . "','" . $deal->getOwner() . "','" . $deal->getStartDate() . "','" . $deal->getDuration() . "')");
+
+
+            $query = "INSERT INTO deal ( name,  desc,  price,  category,  owner,  startDate,  duration) VALUES ( ?,?,?,?,?,?,?)";
+            $stmt = mysqli_prepare($this->dbh, $query);
+//            $stmt->bind_param($deal->getName(), $deal->getDesc()    ,  $deal->getPrice() ,   $deal->getCategory() , $deal->getOwner() ,  $deal->getStartDate() , $deal->getDuration() );
+// $stmt->bind_param('informatique'););
+//            $stmt = $this->dbh->stmt_init();
+//            $stmt->prepare("INSERT INTO deal ( name,  desc,  price,  category,  owner,  startDate,  duration) VALUES ('" . $deal->getName() . "','" . $deal->getDesc() . "','" . $deal->getPrice() . "','" . $deal->getCategory() . "','" . $deal->getOwner() . "','" . $deal->getStartDate() . "','" . $deal->getDuration() . "')");
+//            $query = "INSERT INTO deal ( name,  desc,  price,  category,  owner,  startDate,  duration) VALUES ('" . $deal->getName() . "','" . $deal->getDesc() . "','" . $deal->getPrice() . "','" . $deal->getCategory() . "','" . $deal->getOwner() . "','" . $deal->getStartDate() . "','" . $deal->getDuration() . "')";
+//            $this->dbh->exec($query);
 // $stmt->bind_param('informatique');
-            $stmt->execute();
-            $stmt->close();
-        } catch (Exception $e) {
-            $this->dbh->rollBack();
+            mysqli_stmt_bind_param($stmt, "ssissii", $name, $desc, $price, $category, $owner, $startDate, $duration);
+            mysqli_stmt_execute($stmt);
+            //            $this->dbh->close();
+//            mysqli_stmt_close($stmt);
+        } catch (PDOException $e) {
+//            $this->dbh->rollBack();
             echo "Failed: " . $e->getMessage();
+            echo 'requete Plante';
         }
     }
 

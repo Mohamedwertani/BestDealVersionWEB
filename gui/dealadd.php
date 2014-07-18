@@ -1,124 +1,179 @@
 <?php include("head.php"); ?> 
-<?php include("header.php"); ?>
-<?php
-include("../services/impliment/dealdao.php");
-include("../services/impliment/categoriedao.php");
+<body>
+    <?php include("header.php"); ?>
+    <?php
+    include("../services/impliment/dealdao.php");
+    include("../services/impliment/categoriedao.php");
+    include("../domain/user.php");
 //$categorieDao = new CategorieDao();
 //$resultCategorie = $categorieDao->liste();
 //$catDao->liste();
-$dealDao = new DealDao();
-$resultSet = $dealDao->liste();
-$resultCategorie = $dealDao->listeCategorie();
- 
- 
-?>
+
+    $dealDao = new DealDao();
+    $user = new User('Omar', 'Najar', 'omar', 'omar');
+    $user->setLogin('mohamed');
+    $resultSet = $dealDao->listePerso($user);
+    $resultCategorie = $dealDao->listeCategorie();
+    ?>
 
 
-<!-- Le corps -->
+    <!-- Le corps -->
 
-<div class="container">
+    <div class="container">
 
-    <!-- Main hero unit for a primary marketing message or call to action -->
-    <div class="page-header">
-        <h1>List Of My Deals</h1>
-    </div>
-    <div class="col-md-6">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Name Deal</th>
-                    <th>Description</th>
-                    <th>price</th>  
-                    <th>Category</th>
-                    <th>Owner</th>  
-                    <th>startDate</th>
-                    <th>duration</th>
-                    <th> </th>
-                    <th> </th>
-                    <th> </th>
+        <!-- Main hero unit for a primary marketing message or call to action -->
+        <div class="page-header">
+            <h1>List Of My Deals</h1>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Name Deal</th>
+                        <th>Description</th>
+                        <th>price</th>  
+                        <th>Category</th>
+                        <th>Owner</th>  
+                        <th>startDate</th>
+                        <th>duration</th>
+                        <th> </th>
+                        <th> </th>
+                        <th> </th>
 
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($resultSet->num_rows > 0) {
-                    while ($row = $resultSet->fetch_object()) {
-//                        foreach ($row as $fieldValue) {
-                        echo '<tr> ';
-                        echo "  <td>" . $row->id . "</td>";
-                        echo "  <td>" . $row->name . "</td>";
-                        echo "  <td>" . $row->desc . "</td>";
-                        echo "  <td>" . $row->price . "</td>";
-                        echo "  <td>" . $row->category . "</td>";
-                        echo "  <td>" . $row->owner . "</td>";
-                        echo "  <td>" . $row->startDate . "</td>";
-                        echo "  <td>" . $row->duration . "</td>";
-                        echo '  <td><button type="button" class="btn btn-lg btn-primary">Primary</button></td>';
-                        echo '  <td><button type="button" class="btn btn-lg btn-info">View</button></td>';
-                        echo '  <td><button type="button" class="btn btn-lg btn-success">Update</button></td>';
-                        echo ' </tr>';
-                    }
-                }
-                ?>
-
-
-
-            </tbody>
-        </table>
-    </div>
-
-
-    <!-- Le pied de page -->
-
-
-</div> <!-- /container -->
-<div class="container">
-
-    <form class="form-signin" method="post" action="dealaddAction.php">
-        <h2 class="form-signin-heading">New Deal</h2>
-        <input type="text" class="input-block-level" name="name" placeholder="Name Deal">
-        <input type="number" class="input-block-level" name="price"placeholder="Price Deal">
-        <input type="text" class="input-block-level" name="owner" placeholder="Owner Deal">
-        <input type="datetime-local" class="input-block-level" name="startDate" placeholder="Start Date Deal">
-        <input type="datetime-local" class="input-block-level" name="duration"placeholder="Duration Deal">
-        <input list="browsers"  class="input-block-level" name="category" placeholder="Category Deal">
-        <datalist id="browsers">
-            <?php
-            if ($resultCategorie->num_rows > 0) {
-                while ($row = $resultCategorie->fetch_object()) {
-                    ?>
-                    <option value="<?php echo $row->category; ?>">
+                    </tr>
+                </thead>
+                <tbody>
                     <?php
+                    if ($resultSet->num_rows > 0) {
+                        while ($row = $resultSet->fetch_object()) {
+//                        foreach ($row as $fieldValue) {
+                            echo '<tr> ';
+                            echo "  <td>" . $row->id . "</td>";
+                            echo "  <td>" . $row->name . "</td>";
+                            echo "  <td>" . $row->desc . "</td>";
+                            echo "  <td>" . $row->price . "</td>";
+                            echo "  <td>" . $row->category . "</td>";
+                            echo "  <td>" . $row->owner . "</td>";
+                            echo "  <td>" . $row->startDate . "</td>";
+                            echo "  <td>" . $row->duration . "</td>";
+                            echo '  <td><button type="button" class="btn btn-lg btn-primary">Primary</button></td>';
+                            echo '  <td><button type="button" class="btn btn-lg btn-info">View</button></td>';
+                            echo '  <td><button type="button" class="btn btn-lg btn-primary"  data-toggle="modal" data-target="#myModal">Update</button></td>';
+                            echo ' </tr>';
+                        }
+                    } else {
+                        for ($i = 0; $i < 5; $i++) {
+                            ?>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+                            <?php
+                        }
                     }
-                }
-                ?>
-        </datalist>
-        <textarea cols="1" class="input-block-level" rows="8"  name="desc" placeholder="Descrption Deal" ></textarea>                 
+                    ?>
 
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
-    </form>
 
-</div> <!-- /container -->
-<div class="container">    <?php include("footer.php"); ?></div>
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src=" js/jquery.js"></script>
-<script src=" js/bootstrap-transition.js"></script>
-<script src=" js/bootstrap-alert.js"></script>
-<script src=" js/bootstrap-modal.js"></script>
-<script src=" js/bootstrap-dropdown.js"></script><div id="woo_head" class="woo_content" style="display:none;"><script type="text/html" id="L-template"><iframe id="L-margin" name="L-margin"  class="woo_content_container woo_main_content" src="chrome-extension://hlngmmdolgbdnnimbmblfhhndibdipaf/images/loader.gif" style="display: block !important;"><p>Iframes not supported.</p></iframe></script><iframe id="L-margin" name="L-margin" class="woo_content_container woo_main_content" src="chrome-extension://hlngmmdolgbdnnimbmblfhhndibdipaf/images/loader.gif" style="display: block !important;">&lt;p&gt;Iframes not supported.&lt;/p&gt;</iframe><div id="woo_projected" class="woo_content_trigger hide_txt"><span style="display:none;"><em style="font-size:11px; font-style:normal; font-weight:bold;line-height:26px;text-indent:0;text-decoration:none;overflow:hidden;color:#fff;float:left;position:absolute;text-align:center;left:1px;top:0px;height:25px;width:22px;"></em></span><span class="loader L-loader" style="display:none;"><img class="" src="chrome-extension://hlngmmdolgbdnnimbmblfhhndibdipaf/images/loader.gif"></span><div id="woo_initiate" class="trigger_ctrl"><a id="clickable" href="javascript:void(0);" class="hide_txt" style="display:none;">Trigger</a></div></div><div class="woo_controllers upper_header"><a id="woo_hide" href="Javascript:void(0)" class="hide_margin hide_txt" title="Hide"><span style="background-image:url(chrome-extension://hlngmmdolgbdnnimbmblfhhndibdipaf/images/woo-cancel.png)">x</span></a></div></div>
-<script src=" js/bootstrap-scrollspy.js"></script>
-<script src=" js/bootstrap-tab.js"></script>
-<script src=" js/bootstrap-tooltip.js"></script>
-<script src=" js/bootstrap-popover.js"></script>
-<script src=" js/bootstrap-button.js"></script>
-<script src=" js/bootstrap-collapse.js"></script>
-<script src=" js/bootstrap-carousel.js"></script>
-<script src=" js/bootstrap-typeahead.js"></script>
- 
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Le pied de page -->
+
+
+    </div> <!-- /container -->
+    <div class="container">   
+        <form class="form-actions text-center" method="post" action="dealaddAction.php">
+            <h2 class="form-signin-heading">New Deal</h2>
+            <p> <input type="text" class="input-xxlarge" name="name" placeholder="Name Deal"></p>
+            <p> <input type="number" class="input-xxlarge" name="price"placeholder="Price Deal"></p>
+            <p> <input type="text" class="input-xxlarge" name="owner" placeholder="Owner Deal"></p>
+            <p> <input type="datetime-local" class="input-xxlarge" name="startDate" placeholder="Start Date Deal"></p>
+            <p>  <input type="datetime-local" class="input-xxlarge" name="duration"placeholder="Duration Deal"></p>
+            <p>   <input list="browsers"  class="input-xxlarge" name="category" placeholder="Category Deal"></p>
+            <p>  <datalist id="browsers">
+                    <?php
+                    if ($resultCategorie->num_rows > 0) {
+                        while ($row = $resultCategorie->fetch_object()) {
+                            ?>
+                            <option value="<?php echo $row->category; ?>">
+                                <?php
+                            }
+                        }
+                        ?>
+                </datalist></p>
+            <p>  <textarea cols="1" class="input-xxlarge" rows="8"  name="desc" placeholder="Descrption Deal" ></textarea>  </p>               
+
+            <p> <button class="btn btn-large btn-primary" type="submit">Add Deal</button></p>
+        </form>
+    </div>
+    <!-- /container -->
+    <div class="container">   
+        <?php include("footer.php"); ?>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-width="760">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Update Deal</h4>
+                </div>
+                <div class="modal-body text-center  ">
+                    <div class="container " style=" width: 100%;">  
+                        <form class="form-signin " method="post" action="dealaddAction.php">
+<!--                            <h2 class="form-signin-heading"></h2>-->
+                            <p> <input type="text" class="input-xxlarge" name="name" placeholder="Name Deal"></p>
+                            <p> <input type="number" class="input-xxlarge" name="price"placeholder="Price Deal"></p>
+                            <p> <input type="text" class="input-xxlarge" name="owner" placeholder="Owner Deal"></p>
+                            <p> <input type="datetime-local" class="input-xxlarge" name="startDate" placeholder="Start Date Deal"></p>
+                            <p> <input type="datetime-local" class="input-xxlarge" name="duration"placeholder="Duration Deal"></p>
+                            <p> <input list="browsers"  class="input-xxlarge" name="category" placeholder="Category Deal"></p>
+                            <p> <datalist id="browsers">
+                                    <?php
+                                    if ($resultCategorie->num_rows > 0) {
+                                        while ($row = $resultCategorie->fetch_object()) {
+                                            ?>
+                                            <option value="<?php echo $row->category; ?>">
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                </datalist></p>
+                            <p>  <textarea cols="1" class="input-xxlarge" rows="8"  name="desc" placeholder="Descrption Deal" ></textarea>  </p>               
+
+                            <p> <button class="btn btn-large btn-primary" type="submit">Save changes</button></p>
+                        </form> 
+                    </div>
+                    <!-- /container -->
+                </div>
+                <div class="modal-footer">
+<!--                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->    <!-- Placed at the end of the document so the pages load faster -->
+
+
 </body>
 </html>
 
- 
